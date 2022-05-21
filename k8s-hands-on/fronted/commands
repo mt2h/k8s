@@ -1,0 +1,2 @@
+docker build -t fronted-k8s-hands-on -f Dockerfile .
+kubectl apply -f fronted.yaml

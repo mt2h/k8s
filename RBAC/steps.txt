@@ -1,0 +1,24 @@
+## Create keys and sign
+openssl genrsa -out cristhian.key 2048
+openssl req -new -key cristhian.key -out cristhian.csr -subj "/CN=cristhian/O=dev"
+sudo openssl x509 -req -in cristhian.csr -CA /root/.minikube/ca.crt -CAkey /root/.minikube/ca.key -CAcreateserial -out cristhian.crt -days 500
+openssl x509 -in  cristhian.crt  -noout -text
+
+## Isolated env
+kubectl config view  | grep server
+kubectl cluster-info
+docker run --rm -ti -v $PWD:/test -w /test  -v /root/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+## Configure kubectl for user
+kubectl config set-cluster minikube --server=https://161.35.126.109:8443 --certificate-authority=/ca.crt
+kubectl config set-credentials cristhian --client-certificate=cristhian.crt --client-key=cristhian.key
+kubectl config set-context cristhian --cluster=minikube --user=cristhian
+kubectl config use-context cristhian
+
+## Verificate# RBAC
+kubectl cluster-info dump
+kubectl cluster-info dump | grep authorization-mode
+minikube start --vm-driver=none  --extra-config=apiserver.authorization-mode=RBAC #in case RBAC is not enabled
+
+kubectl config get-contexts
+kubectl config use-context cristhian

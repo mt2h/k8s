@@ -1,0 +1,8 @@
+.cache
+.Trash-*
+*.crt
+*.csr
+*.key
+**/new_user_credentials.csv
+AWS/
+README.md.backup

@@ -1,0 +1,2 @@
+docker build -t backend-k8s-hands-on -f Dockerfile .
+kubectl apply -f backend.yaml

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fronted-k8s-hands-on
+  labels:
+    app: fronted
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fronted
+  template:
+    metadata:
+      labels:
+        app: fronted
+    spec:
+      containers:
+        - name: fronted
+          image: fronted-k8s-hands-on
+          imagePullPolicy: IfNotPresent
+---
+apiVersion:  v1
+kind: Service
+metadata:
+  name: fronted-k8s-hands-on
+  labels:
+    app: fronted
+spec:
+  type: NodePort
+  selector:
+    app: fronted
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

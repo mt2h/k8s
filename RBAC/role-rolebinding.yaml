@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "watch", "list"] #create, update, patch, delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-example
+  namespace: default
+subjects:
+- kind: User
+  name: cristhian
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-reader
+  apiGroup: rbac.authorization.k8s.io
