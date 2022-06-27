@@ -459,6 +459,11 @@ kubectl kustomize --enable-alpha-plugins
 #execute build for helm
 kubectl kustomize --enable-helm
 kubectl kustomize --enable-helm --enable-alpha-plugins
+
+#for ksops
+#add path XDG_CONFIG_HOME in User Home, after run
+source /etc/environment
+source <(curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh)
 ```
 
 # Jobs
