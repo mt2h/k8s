@@ -132,6 +132,11 @@ kubectl config use-context minikube
 ```bash
 kubectl get nodes
 kubectl describe node kubernetes-worker
+
+#delete node of nodegroup eks aws
+kubectl get nodes
+kubectl drain ip-10-1-9-18.us-east-1.compute.internal
+kubectl delete node ip-10-1-9-18.us-east-1.compute.internal
 ```
 
 # Commands for Limit Range
