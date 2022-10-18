@@ -126,6 +126,11 @@ kubectl config view
 kubectl config set-context ci-context --namespace ci --cluster minikube --user minikube
 kubectl config use-context ci-context
 kubectl config use-context minikube
+
+#remove with finalizers
+kubectl get namespace <YOUR_NAMESPACE> -o json > <YOUR_NAMESPACE>.json
+kubectl replace --raw "/api/v1/namespaces/<YOUR_NAMESPACE>/finalize" -f ./<YOUR_NAMESPACE>.json
+kubectl get namespace
 ```
 
 # Commands for Nodes
