@@ -463,6 +463,8 @@ aws eks update-kubeconfig --name cluster_name
 
 # Kustomize
 
+https://blog.oddbit.com/post/2021-03-09-getting-started-with-ksops/
+
 ```
 #wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.0.5/kustomize_v4.0.5_linux_amd64.tar.gz
 #tar -C ~/bin -xf kustomize_v4.0.5_linux_amd64.tar.gz
