@@ -63,6 +63,11 @@ kubectl get pods --watch
 
 #delete older pods force 
 kubectl delete pod podtest1 --grace-period=0 --force
+
+kubectl get pod -n backend | grep Evicted | awk '{print $1}' | xargs kubectl delete pod -n backend
+
+kubectl get pod --field-selector=status.phase==Succeeded -A
+kubectl delete pod --field-selector=status.phase==Succeeded -A
 ```
 # Commands for Replicasets
 ```bash
@@ -267,6 +272,9 @@ curl entry1.mydomain.com:30300/app1
 curl entry1.mydomain.com:30300/app2
 curl entry2.mydomain.com:30300/service1
 curl entry2.mydomain.com:30300/service2
+
+#views logs ingress controller
+kubectl -n kube-system logs -l app.kubernetes.io/component=controller
 ```
 
 # Commands for API
@@ -454,11 +462,24 @@ aws eks update-kubeconfig --name cluster_name
 ```
 
 # Kustomize
-
-```bash
-#install
-sudo snap install kustomize
+#wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.0.5/kustomize_v4.0.5_linux_amd64.tar.gz
+#tar -C ~/bin -xf kustomize_v4.0.5_linux_amd64.tar.gz
+#sudo tar -C /usr/local/bin -xf kustomize_v4.0.5_linux_amd64.tar.gz
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+sudo mv kustomize /usr/local/bin/
+chmod +x /usr/local/bin/kustomize
 kustomize version
+
+#sops
+wget https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
+curl -o ~/bin/sops https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
+chmod 755 ~/bin/sops
+
+#ksop
+mkdir  -p ~/.config/kustomize/plugin/viaduct.ai/v1/ksops/
+tar -C ~/.config/kustomize/plugin/viaduct.ai/v1/ksops -xf ksops_2.4.0_Linux_x86_64.tar.gz ksops
+
+#for ksops
 
 #execute simple build
 kustomize build .
@@ -469,11 +490,6 @@ kubectl kustomize --enable-alpha-plugins
 #execute build for helm
 kubectl kustomize --enable-helm
 kubectl kustomize --enable-helm --enable-alpha-plugins
-
-#for ksops
-#add path XDG_CONFIG_HOME in User Home, after run
-source /etc/environment
-source <(curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh)
 ```
 
 # Jobs
@@ -510,6 +526,8 @@ kubectl create job --from=cronjob/kubernetes-cron-job manual-cron-job
 
 #suspend cronjob
 kubectl patch cronjobs kubernetes-cron-job -p "{\"spec\" : {\"suspend\" : true }}"
+
+kubectl -n backend create job --from=cronjob/backend-job backend-job-plz
 ```
 
 # Kubetail
@@ -521,6 +539,9 @@ sudo apt-get -y install kubetail
 #get logs all containers "container1"
 kubetail -n test -c "container1" -l "app=web"
 ```
+
+# Cluster Autoscaler AWS
+kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler-aws-cluster-autoscaler
 
 # Board Structure
 ![Board Structure](./img/board_estructure.jpeg)
