@@ -489,7 +489,7 @@ tar -C ~/.config/kustomize/plugin/viaduct.ai/v1/ksops -xf ksops_2.4.0_Linux_x86_
 kustomize build .
 
 #execute build with extensions, for example sops
-kubectl kustomize --enable-alpha-plugins
+kustomize build --enable-alpha-plugins .
 
 #execute build for helm
 kubectl kustomize --enable-helm
