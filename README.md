@@ -277,6 +277,14 @@ curl entry2.mydomain.com:30300/service2
 kubectl -n kube-system logs -l app.kubernetes.io/component=controller
 ```
 
+# Commands for TOP
+
+```bash
+kubectl top nodes
+kubectl top pod --all-namespaces
+kubectl top pods --containers
+```
+
 # Commands for API
 ```bash
 kubectl api-versions
