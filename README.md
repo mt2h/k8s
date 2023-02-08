@@ -91,9 +91,9 @@ kubectl rollout status deployment deployment-test
 kubectl rollout history deployment deployment-test
 kubectl rollout history deployment deployment-test --revision 3
 kubectl rollout undo deployment deployment-test --to-revision 2
-
-#restart all pod of deployment
 kubectl rollout restart deployment deployment-test
+kubectl rollout pause deployment deployment-test
+kubectl rollout resume deployment deployment-test
 ```
 
 # Commands for Services
