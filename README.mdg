@@ -553,6 +553,12 @@ sudo apt-get -y install kubetail
 kubetail -n test -c "container1" -l "app=web"
 ```
 
+# Events
+
+```bash
+kubectl get events --sort-by='.lastTimestamp'
+```
+
 # Cluster Autoscaler AWS
 kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler-aws-cluster-autoscaler
 
