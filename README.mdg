@@ -570,3 +570,11 @@ kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler-aws-cluster-au
 ![Board Commands](./img/board_commands.jpeg)
 
 ![Board Commands](./img/stress_for_autoscaler.png)
+
+# EKSCTL
+
+```bash
+eksctl get cluster --profile test --region us-east-1
+eksctl get nodegroup --cluster test --profile test --region us-east-1
+eksctl get iamserviceaccount --cluster test --profile test --region us-east-1
+```
