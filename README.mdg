@@ -558,6 +558,7 @@ kubetail -n test -c "container1" -l "app=web"
 
 ```bash
 kubectl get events --sort-by='.lastTimestamp'
+kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 # Cluster Autoscaler AWS
