@@ -579,3 +579,10 @@ eksctl get cluster --profile test --region us-east-1
 eksctl get nodegroup --cluster test --profile test --region us-east-1
 eksctl get iamserviceaccount --cluster test --profile test --region us-east-1
 ```
+
+# TYPE INSTANCE FOR KARPENTER NODES
+
+```bash
+kubectl get nodes -o yaml | yq '.items[] | {"name": .metadata.name, "instance-size": .metadata.labels."karpenter.k8s.aws/instance-size"}'
+```
+
