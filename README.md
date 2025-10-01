@@ -132,6 +132,11 @@ kubectl config set-context ci-context --namespace ci --cluster minikube --user m
 kubectl config use-context ci-context
 kubectl config use-context minikube
 
+#delete config cluster
+kubectl config delete-context arn:aws:eks:${REGION}:${ACCOUNT_ID}:cluster/${CLUSTER_NAME}
+kubectl config delete-cluster arn:aws:eks:${REGION}:${ACCOUNT_ID}:cluster/${CLUSTER_NAME}
+kubectl config unset users.arn:aws:eks:${REGION}:${ACCOUNT_ID}:cluster/${CLUSTER_NAME}
+
 #remove with finalizers
 kubectl get namespace <YOUR_NAMESPACE> -o json > <YOUR_NAMESPACE>.json
 kubectl replace --raw "/api/v1/namespaces/<YOUR_NAMESPACE>/finalize" -f ./<YOUR_NAMESPACE>.json
