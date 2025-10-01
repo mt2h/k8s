@@ -472,7 +472,15 @@ kubectl get nodes #max nodes depends of how to create cluster with nodes, in thi
 ## Get Config from EKS Cluster
 
 ```
-aws eks update-kubeconfig --name cluster_name
+aws eks update-kubeconfig --name ${CLUSTER_NAME}
+
+aws sso login --profile AWS_PROFILE=${PROFILE_SSO}
+aws eks update-kubeconfig \
+  --region ${REGION} \
+  --name ${CLUSTER_NAME} \
+  --profile ${PROFILE_SSO}
+
+export AWS_PROFILE=${PROFILE_SSO}
 ```
 
 # Kustomize
