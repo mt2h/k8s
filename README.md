@@ -37,6 +37,11 @@ mv minikube-linux-amd64 /usr/local/bin/minikube
 minikube status
 minikube start --driver=none
 kubectl run --generator=run-pod/v1 podtest --image=nginx:alpine
+
+minikube start --memory=4096 --cpus=2
+minikube stop
+minikube addons enable ingress
+minikube addons list
 ```
 
 # Commands for Pods
